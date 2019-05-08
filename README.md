@@ -70,15 +70,17 @@ loader 又是倒序执行的，所以 babel-plugin-style-import 配置需要放�
 
 ### 配置 Api
 libraryList [array]
+
 | 参数 | 类型 | 是否必传 | 默认值 | 说明 |
-| :------ | :------ | :------ | :------ | :------ |
-|libraryName |String |是 | 无 |组件库名 |
-|camel2DashSplitChart |String |否 |'_' |组件文件夹拆分字符，('HeadBack', '_') => 'head_back'|
-|styleFileName |String |否 |无 | 样式文件名，使用“{{name}}”进行替换 |
-|customStyleFileName |Function |否 |无 |自定义样式文件名，定义了当前参数的情况下 camel2DashSplitChart 与 styleFileName 参数将会失效，不 return 的情况下会忽略输出 |
+| :------ | :------ | :------ | :------ | :------ | 
+|libraryName |String |是 | 无 |组件库名 | 
+|camel2DashSplitChart |String |否 |'_' |组件文件夹拆分字符，('HeadBack', '_') => 'head_back'| 
+|styleFileName |String |否 |无 | 样式文件名，使用“{{name}}”进行替换 | 
+|customStyleFileName |Function |否 |无 |自定义样式文件名，定义了当前参数的情况下 camel2DashSplitChart 与 styleFileName 参数将会失效，不 return 的情况下会忽略输出 | 
 
 
 customStyleFileName arguments [function]
+
 | 参数 | 类型 | 说明 |
 | :------ | :------ | :------ |
 |name |String |子组件名 |
@@ -86,6 +88,7 @@ customStyleFileName arguments [function]
 |@return |String | 返回样式文件路径，不返回的情况下忽略输出 |
 
 babel-import-style-import/util
+
 ``` javascript
 const util = require('babel-plugin-style-import/lib/util.js');
 util.convertName('HeadBack', '-');  // output 'head-back'
