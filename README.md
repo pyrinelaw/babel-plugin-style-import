@@ -86,9 +86,13 @@ libraryList [array]
 customStyleFileName arguments [function]
 
 | 参数 | 类型 | 说明 |
+
 | :------ | :------ | :------ |
+
 |name |String |子组件名 | 
+
 |libraryOptions |Object |当前转换组件数据对象|
+
 |@return |String | 返回样式文件路径，不返回的情况下忽略输出 |
 
 babel-import-style-import/util
