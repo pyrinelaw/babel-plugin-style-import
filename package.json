@@ -1,0 +1,25 @@
+{
+    "name": "babel-plugin-style-import",
+    "version": "0.0.1",
+    "main": "index.js",
+    "repository": {
+      "url": "https://github.com/pyrinelaw/babel-plugin-style-import.git",
+      "type": "git"
+    },
+    "author": "pyrine.law <pyrine.law@gmail.com>",
+    "dependencies": {
+        "loader-utils": "^1.2.3",
+        "vue-template-compiler": "^2.1.8",
+        "hash-sum": "^1.0.2",
+        "lru-cache": "^4.0.1",
+        "@babel/generator":"^7.1.6",
+        "@babel/parser": "^7.1.6",
+        "lodash": "^4.17.4",
+        "colors": "^1.0.3"
+    },
+    "os": [
+      "linux"
+    ],
+    "license": "MIT"
+  }
+  
