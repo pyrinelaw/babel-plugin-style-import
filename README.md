@@ -103,8 +103,8 @@ util.convertName('HeadBack', '-');  // output 'head-back'
 ```
 
 ### github
-[]()
+[https://github.com/pyrinelaw/babel-plugin-style-import](https://github.com/pyrinelaw/babel-plugin-style-import)
 
 ### demo 路径
-/test_js
-/test_vue
+- /test_js
+- /test_vue
