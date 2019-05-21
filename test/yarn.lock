@@ -2475,11 +2475,6 @@ dateformat@^2.0.0:
   resolved "http://registry.npm.qima-inc.com/dateformat/download/dateformat-2.2.0.tgz#4065e2013cf9fb916ddfd82efb506ad4c6769062"
   integrity sha1-QGXiATz5+5Ft39gu+1Bq1MZ2kGI=
 
-de-indent@^1.0.2:
-  version "1.0.2"
-  resolved "http://registry.npm.qima-inc.com/de-indent/download/de-indent-1.0.2.tgz#b2038e846dc33baa5796128d0804b455b8c1e21d"
-  integrity sha1-sgOOhG3DO6pXlhKNCAS0VbjB4h0=
-
 debug@2.6.9, debug@^2.0.0, debug@^2.1.0, debug@^2.2.0, debug@^2.3.3, debug@^2.6.6, debug@^2.6.8, debug@^2.6.9:
   version "2.6.9"
   resolved "http://registry.npm.qima-inc.com/debug/download/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
@@ -5250,6 +5245,11 @@ lodash._getnative@^3.0.0:
   resolved "http://registry.npm.qima-inc.com/lodash._getnative/download/lodash._getnative-3.9.1.tgz#570bc7dede46d61cdcde687d65d3eecbaa3aaff5"
   integrity sha1-VwvH3t5G1hzc3mh9ZdPuy6o6r/U=
 
+lodash._reinterpolate@~3.0.0:
+  version "3.0.0"
+  resolved "http://registry.npm.qima-inc.com/lodash._reinterpolate/download/lodash._reinterpolate-3.0.0.tgz#0ccf2d89166af03b3663c796538b75ac6e114d9d"
+  integrity sha1-DM8tiRZq8Ds2Y8eWU4t1rG4RTZ0=
+
 lodash._topath@^3.0.0:
   version "3.8.1"
   resolved "http://registry.npm.qima-inc.com/lodash._topath/download/lodash._topath-3.8.1.tgz#3ec5e2606014f4cb97f755fe6914edd8bfc00eac"
@@ -5313,6 +5313,21 @@ lodash.tail@^4.1.1:
   version "4.1.1"
   resolved "http://registry.npm.qima-inc.com/lodash.tail/download/lodash.tail-4.1.1.tgz#d2333a36d9e7717c8ad2f7cacafec7c32b444664"
   integrity sha1-0jM6NtnncXyK0vfKyv7HwytERmQ=
+
+lodash.template@^4.4.0:
+  version "4.4.0"
+  resolved "http://registry.npm.qima-inc.com/lodash.template/download/lodash.template-4.4.0.tgz#e73a0385c8355591746e020b99679c690e68fba0"
+  integrity sha1-5zoDhcg1VZF0bgILmWecaQ5o+6A=
+  dependencies:
+    lodash._reinterpolate "~3.0.0"
+    lodash.templatesettings "^4.0.0"
+
+lodash.templatesettings@^4.0.0:
+  version "4.1.0"
+  resolved "http://registry.npm.qima-inc.com/lodash.templatesettings/download/lodash.templatesettings-4.1.0.tgz#2b4d4e95ba440d915ff08bc899e4553666713316"
+  integrity sha1-K01OlbpEDZFf8IvImeRVNmZxMxY=
+  dependencies:
+    lodash._reinterpolate "~3.0.0"
 
 lodash.throttle@^4.0.0:
   version "4.1.1"
@@ -8249,6 +8264,11 @@ sentence-case@^2.1.0:
     no-case "^2.2.0"
     upper-case-first "^1.1.2"
 
+serialize-javascript@^1.3.0:
+  version "1.7.0"
+  resolved "http://registry.npm.qima-inc.com/serialize-javascript/download/serialize-javascript-1.7.0.tgz#d6e0dfb2a3832a8c94468e6eb1db97e55a192a65"
+  integrity sha1-1uDfsqODKoyURo5usduX5VoZKmU=
+
 serve-index@^1.9.1:
   version "1.9.1"
   resolved "http://registry.npm.qima-inc.com/serve-index/download/serve-index-1.9.1.tgz#d3768d69b1e7d82e5ce050fff5b453bea12a9239"
@@ -8494,6 +8514,11 @@ source-map@0.4.x, source-map@^0.4.2:
   integrity sha1-66T12pwNyZneaAMti092FzZSA2s=
   dependencies:
     amdefine ">=0.0.4"
+
+source-map@0.5.6:
+  version "0.5.6"
+  resolved "http://registry.npm.qima-inc.com/source-map/download/source-map-0.5.6.tgz#75ce38f52bf0733c5a7f0c118d81334a2bb5f412"
+  integrity sha1-dc449SvwczxafwwRjYEzSiu19BI=
 
 source-map@^0.5.0, source-map@^0.5.3, source-map@^0.5.6, source-map@^0.5.7, source-map@~0.5.0, source-map@~0.5.1:
   version "0.5.7"
@@ -9408,13 +9433,19 @@ vue-router@^2.2.1:
   resolved "http://registry.npm.qima-inc.com/vue-router/download/vue-router-2.8.1.tgz#9833c9ee57ac83beb0269056fefee71713f20695"
   integrity sha1-mDPJ7lesg76wJpBW/v7nFxPyBpU=
 
-vue-server-renderer@2.1.8:
-  version "2.1.8"
-  resolved "http://registry.npm.qima-inc.com/vue-server-renderer/download/vue-server-renderer-2.1.8.tgz#834f2fc940b87f6f9bc6a1c8a604fddd5e6283ba"
-  integrity sha1-g08vyUC4f2+bxqHIpgT93V5ig7o=
+vue-server-renderer@^2.1.8:
+  version "2.6.10"
+  resolved "http://registry.npm.qima-inc.com/vue-server-renderer/download/vue-server-renderer-2.6.10.tgz#cb2558842ead360ae2ec1f3719b75564a805b375"
+  integrity sha1-yyVYhC6tNgri7B83GbdVZKgFs3U=
   dependencies:
-    de-indent "^1.0.2"
+    chalk "^1.1.3"
+    hash-sum "^1.0.2"
     he "^1.1.0"
+    lodash.template "^4.4.0"
+    lodash.uniq "^4.5.0"
+    resolve "^1.2.0"
+    serialize-javascript "^1.3.0"
+    source-map "0.5.6"
 
 vue-sfc-compiler@^0.0.8:
   version "0.0.8"
@@ -9436,10 +9467,10 @@ vue-template-es2015-compiler@^1.6.0:
   resolved "http://registry.npm.qima-inc.com/vue-template-es2015-compiler/download/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha1-HuO8mhbsv1EYvjNLsV+cRvgvWCU=
 
-vue@2.1.8:
-  version "2.1.8"
-  resolved "http://registry.npm.qima-inc.com/vue/download/vue-2.1.8.tgz#ae30aa86024fccf5535292ce414e7b4c221a1756"
-  integrity sha1-rjCqhgJPzPVTUpLOQU57TCIaF1Y=
+vue@^2.1.8:
+  version "2.6.10"
+  resolved "http://registry.npm.qima-inc.com/vue/download/vue-2.6.10.tgz#a72b1a42a4d82a721ea438d1b6bf55e66195c637"
+  integrity sha1-pysaQqTYKnIepDjRtr9V5mGVxjc=
 
 warning@4.x, warning@^4.0.1, warning@^4.0.2, warning@^4.0.3, warning@~4.0.2:
   version "4.0.3"

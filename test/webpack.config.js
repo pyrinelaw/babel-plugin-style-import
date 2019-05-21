@@ -6,10 +6,44 @@ const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const fs= require("fs");
 const util = require('../lib/util.js');
 
+const styleImportOptions = {
+    list: [
+        {
+            // 组件库名称
+            name: 'antd',
+            // 文件转换规则，默认为'_',
+            // 传入 style 参数为 Function 类型时， splitChart 将不生效
+            splitChart: '-',
+            // 样式文件名，css/scss/less 均可
+            // 最终导出为 {{name}}/{{style}}
+            style: 'lib/{{name}}/style/index.less',
+        },
+        {
+            // npm 组件库名称
+            name: 'vant',
+            // 文件转换规则，默认使用下划线
+            splitChart: undefined,
+            // 自定义样式文件名，css/scss/less 均可
+            // 最终生成路径 {{name}}/{{style}}
+            // 未返回路径时，将不会 导入样式文件
+            style: function(name, libraryOptions) {
+                const stylePath = `lib/vant-css/${util.convertName(name, '-')}.css`;
+                const completeStylePath = path.resolve(__dirname, `./node_modules/vant/${stylePath}`);
+                
+                if (fs.existsSync(completeStylePath)) {
+                    return stylePath;
+                } else {
+                    console.warn(`The file ${stylePath} is not exists！`);
+                }
+            },
+        }
+    ]
+};
+
 module.exports = {
     devServer: {
         open: true,
-        port: 6530,
+        port: 6529,
         inline: true,
         publicPath: '/',
         contentBase: './dist',
@@ -18,7 +52,7 @@ module.exports = {
         index: path.join(__dirname, './index.js'),
     },
     output: {
-        publicPath: '//localhost:6530/',
+        publicPath: '//localhost:6529/',
         path: path.join(__dirname, './dist'), // 打包后的文件存放的地方
         filename: '[name]_[hash].js', // 打包后输出文件的文件名
         chunkFilename: '[name]_[chunkhash].js',
@@ -69,44 +103,7 @@ module.exports = {
                     },
                     {
                         loader: path.resolve(__dirname, '../index.js'),
-                        options: {
-                            libraryList: [
-                                {
-                                    // 组件库名称
-                                    libraryName: 'antd',
-                                    
-                                    // 文件转换规则，默认为'_',
-                                    // 传入 customStyleFileName 参数时 camel2DashSplitChart 将不生效
-                                    camel2DashSplitChart: '-',
-
-                                    // 样式文件名，css/scss/less 均可
-                                    // 最终导出为 {{libraryName}}/{{styleFileName}}
-                                    // 传入 customStyleFileName 时， styleFileName 将不生效
-                                    styleFileName: 'lib/{{name}}/style/index.less',
-                                },
-                                {
-                                    // npm 组件库名称
-                                    libraryName: 'vant',
-
-                                    // 文件转换规则，默认使用下划线
-                                    camel2DashSplitChart: undefined,
-
-                                    // 自定义样式文件名，css/scss/less 均可
-                                    // 最终生成路径 {{libraryName}}/{{customStyleFileName}}
-                                    // 未返回路径时，将不会 导入样式文件
-                                    customStyleFileName: function(name, libraryOptions) {
-                                        const stylePath = `lib/vant-css/${util.convertName(name, '-')}.css`;
-                                        const completeStylePath = path.resolve(__dirname, `./node_modules/vant/${stylePath}`);
-                                        
-                                        if (fs.existsSync(completeStylePath)) {
-                                            return stylePath;
-                                        } else {
-                                            console.warn(`The file ${stylePath} is not exists！`);
-                                        }
-                                    },
-                                }
-                            ],
-                        },
+                        options: styleImportOptions,
                     },
                 ],
             },
@@ -116,6 +113,18 @@ module.exports = {
                 use: [
                     {
                         loader: 'babel-loader',
+                        options: {
+                            cacheDirectory: true,
+                            presets: ['es2015', 'stage-2'],
+                            plugins: [
+                                'add-module-exports',
+                                'transform-es2015-modules-commonjs',
+                            ],
+                        },
+                    },
+                    {
+                        loader: path.resolve(__dirname, '../index.js'),
+                        options: styleImportOptions,
                     },
                 ],
             },

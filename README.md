@@ -1,6 +1,6 @@
 ### babel-plugin-style-import
 
-webpack loader组件，解决样式单独引入问题，参考 babel-plugin-import，同时存在一定的差异化。[babel-plugin-import](https://github.com/ant-design/babel-plugin-import)
+webpack loader 组件，组件样式单独引入
 
 达到类似效果：
 ``` javascript
@@ -20,70 +20,95 @@ import {
 } from 'antd';
 ```
 
-### 与 babel-plugin-import 比较：
-- 只能按需加载组价库中的样式资源，不能按需加载 js 文件
-- 可以自定义分隔符
-- 组件库中不需要通过 js 对样式文件进行引入
-- 同样支持 css/scss/less 资源文件
-
 ### 配置示例
 babel-plugin-style-import 需要在 loader 中优先执行，而 webpack 中
 loader 又是倒序执行的，所以 babel-plugin-style-import 配置需要放置在最后
 
 以 antd 与 vant 为例
 ``` javascript
-{
-    loader: 'babel-plugin-style-import',
-    options: {
-        libraryList: [
+const styleOptions = {
+    list: [
+        {
+            // 组件库名称
+            name: 'antd',
+            // 文件转换规则，默认为'_',
+            // 传入 style 参数为 Function 类型时， splitChart 将不生效
+            splitChart: '-',
+            // 样式文件名，css/scss/less 均可
+            // 最终导出为 {{name}}/{{style}}
+            style: 'lib/{{name}}/style/index.less',
+        },
+        {
+            // npm 组件库名称
+            name: 'vant',
+            // 文件转换规则，默认使用下划线
+            splitChart: undefined,
+            // 自定义样式文件名，css/scss/less 均可
+            // 最终生成路径 {{name}}/{{style}}
+            // 未返回路径时，将不会 导入样式文件
+            style: function(name, libraryOptions) {
+                const stylePath = `lib/vant-css/${util.convertName(name, '-')}.css`;
+                const completeStylePath = path.resolve(__dirname, `./node_modules/vant/${stylePath}`);
+                
+                if (fs.existsSync(completeStylePath)) {
+                    return stylePath;
+                } else {
+                    console.warn(`The file ${stylePath} is not exists！`);
+                }
+            },
+        }
+    ]
+};
+
+rules: [
+    {
+        test: /\.vue$/,
+        use: [
             {
-                // npm 组件库名称
-                libraryName: 'antd',
-                camel2DashSplitChart: '-',
-                // 样式文件名，css/scss/less 均可
-                // 最终导出为 {{libraryName}}/{{styleFileName}}
-                styleFileName: 'lib/{{name}}/style/index.less',
+                loader: 'vue-loader',
+                options: {
+                   ...
+                },
             },
             {
-                // npm 组件库名称
-                libraryName: 'vant',
-
-                // 自定义样式文件名，css/scss/less 均可
-                // 最终生成路径 {{libraryName}}/{{customStyleFileName}}
-                // 未返回路径时，将不会导入样式文件
-                // 传入 customStyleFileName 时， camel2DashSplitChart 与 styleFileName 参数将失效
-                customStyleFileName: function(name, libraryOptions) {
-                    const stylePath = `lib/vant-css/${retuire('babel-plugin-style-import/lib/util').convertName(name, '-')}.css`;
-                    const completeStylePath = path.resolve(__dirname, `./node_modules/vant/${stylePath}`);
-                    
-                    if (fs.existsSync(completeStylePath)) {
-                        return stylePath;
-                    } else {
-                        console.warn(`The file ${stylePath} is not exists！`);
-                    }
-                },
-            }
+                loader: 'babel-plugin-style-import',
+                options: styleOptions,
+            },
         ],
     },
-},
+    {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: [
+            {
+                loader: 'babel-loader',
+                options: {
+                    ...
+                },
+            },
+            {
+                loader: 'babel-plugin-style-import',
+                options: styleOptions,
+            },
+        ],
+    },
+],
 ```
 
 ### 配置 Api
-libraryList [array]
+list [array]
 
 | 参数 | 类型 | 是否必传 | 默认值 | 说明 |
 | :------ | :------ | :------ | :------ | :------ | 
-|libraryName |String |是 | 无 |组件库名 | 
-|camel2DashSplitChart |String |否 |'_' |组件文件夹拆分字符，('HeadBack', '_') => 'head_back'| 
-|styleFileName |String |否 |无 | 样式文件名，使用“{{name}}”进行替换 | 
-|customStyleFileName |Function |否 |无 |自定义样式文件名，定义了当前参数的情况下 camel2DashSplitChart 与 styleFileName 参数将会失效，不 return 的情况下会忽略输出 | 
+|name |String |是 | 无 |组件库名 | 
+|splitChart |String |否 |'_' |组件文件夹拆分字符，('HeadBack', '_') => 'head_back'| 
+|style |String 或 Function |否 |无 | 样式文件名，使用“{{name}}”进行替换，或者返回用户自定义style | 
 
-customStyleFileName arguments [function]
+style arguments [function]
 
 | 参数 | 类型 | 说明 |
 | :------ | :------ | :------ |
 |name |String |子组件名 | 
-|libraryOptions |Object |当前转换组件数据对象|
 |@return |String | 返回样式文件路径，不返回的情况下忽略输出 |
 
 babel-import-style-import/util
@@ -96,6 +121,5 @@ util.convertName('HeadBack', '-');  // output 'head-back'
 ### github
 [https://github.com/pyrinelaw/babel-plugin-style-import](https://github.com/pyrinelaw/babel-plugin-style-import)
 
-### demo 路径
-- /test_js
-- /test_vue
+### test 目录
+- /test
